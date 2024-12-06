@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="menu12Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="alimentos">
+          <Key>
+            <PropertyRef Name="id_alimento" />
+          </Key>
+          <Property Name="id_alimento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bebidas">
+          <Key>
+            <PropertyRef Name="id_bebida" />
+          </Key>
+          <Property Name="id_bebida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="metodos_pago">
+          <Key>
+            <PropertyRef Name="id_metodo" />
+          </Key>
+          <Property Name="id_metodo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pedidos">
+          <Key>
+            <PropertyRef Name="id_pedido" />
+          </Key>
+          <Property Name="id_pedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_cliente" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="id_alimento" Type="int" Nullable="false" />
+          <Property Name="id_bebida" Type="int" Nullable="false" />
+          <Property Name="id_metodo" Type="int" Nullable="false" />
+          <Property Name="para_llevar" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'menu12.dbo.vistaproductosactivo0s' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="vistaproductosactivo0s">
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="precio" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>-->
+        <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'menu12.dbo.vistaproductosactivos' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="vistaproductosactivos">
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="precio" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>-->
+        <Association Name="FK__pedidos__id_alim__5070F446">
+          <End Role="alimentos" Type="Self.alimentos" Multiplicity="1" />
+          <End Role="pedidos" Type="Self.pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="alimentos">
+              <PropertyRef Name="id_alimento" />
+            </Principal>
+            <Dependent Role="pedidos">
+              <PropertyRef Name="id_alimento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedidos__id_bebi__5165187F">
+          <End Role="bebidas" Type="Self.bebidas" Multiplicity="1" />
+          <End Role="pedidos" Type="Self.pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bebidas">
+              <PropertyRef Name="id_bebida" />
+            </Principal>
+            <Dependent Role="pedidos">
+              <PropertyRef Name="id_bebida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedidos__id_meto__52593CB8">
+          <End Role="metodos_pago" Type="Self.metodos_pago" Multiplicity="1" />
+          <End Role="pedidos" Type="Self.pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="metodos_pago">
+              <PropertyRef Name="id_metodo" />
+            </Principal>
+            <Dependent Role="pedidos">
+              <PropertyRef Name="id_metodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="menu12ModelStoreContainer">
+          <EntitySet Name="alimentos" EntityType="Self.alimentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bebidas" EntityType="Self.bebidas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="metodos_pago" EntityType="Self.metodos_pago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pedidos" EntityType="Self.pedidos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__pedidos__id_alim__5070F446" Association="Self.FK__pedidos__id_alim__5070F446">
+            <End Role="alimentos" EntitySet="alimentos" />
+            <End Role="pedidos" EntitySet="pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedidos__id_bebi__5165187F" Association="Self.FK__pedidos__id_bebi__5165187F">
+            <End Role="bebidas" EntitySet="bebidas" />
+            <End Role="pedidos" EntitySet="pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedidos__id_meto__52593CB8" Association="Self.FK__pedidos__id_meto__52593CB8">
+            <End Role="metodos_pago" EntitySet="metodos_pago" />
+            <End Role="pedidos" EntitySet="pedidos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="menu12Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="alimentos">
+          <Key>
+            <PropertyRef Name="id_alimento" />
+          </Key>
+          <Property Name="id_alimento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="pedidos" Relationship="Self.FK__pedidos__id_alim__5070F446" FromRole="alimentos" ToRole="pedidos" />
+        </EntityType>
+        <EntityType Name="bebidas">
+          <Key>
+            <PropertyRef Name="id_bebida" />
+          </Key>
+          <Property Name="id_bebida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="pedidos" Relationship="Self.FK__pedidos__id_bebi__5165187F" FromRole="bebidas" ToRole="pedidos" />
+        </EntityType>
+        <EntityType Name="metodos_pago">
+          <Key>
+            <PropertyRef Name="id_metodo" />
+          </Key>
+          <Property Name="id_metodo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="pedidos" Relationship="Self.FK__pedidos__id_meto__52593CB8" FromRole="metodos_pago" ToRole="pedidos" />
+        </EntityType>
+        <EntityType Name="pedidos">
+          <Key>
+            <PropertyRef Name="id_pedido" />
+          </Key>
+          <Property Name="id_pedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_cliente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_alimento" Type="Int32" Nullable="false" />
+          <Property Name="id_bebida" Type="Int32" Nullable="false" />
+          <Property Name="id_metodo" Type="Int32" Nullable="false" />
+          <Property Name="para_llevar" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="alimentos" Relationship="Self.FK__pedidos__id_alim__5070F446" FromRole="pedidos" ToRole="alimentos" />
+          <NavigationProperty Name="bebidas" Relationship="Self.FK__pedidos__id_bebi__5165187F" FromRole="pedidos" ToRole="bebidas" />
+          <NavigationProperty Name="metodos_pago" Relationship="Self.FK__pedidos__id_meto__52593CB8" FromRole="pedidos" ToRole="metodos_pago" />
+        </EntityType>
+        <Association Name="FK__pedidos__id_alim__5070F446">
+          <End Role="alimentos" Type="Self.alimentos" Multiplicity="1" />
+          <End Role="pedidos" Type="Self.pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="alimentos">
+              <PropertyRef Name="id_alimento" />
+            </Principal>
+            <Dependent Role="pedidos">
+              <PropertyRef Name="id_alimento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedidos__id_bebi__5165187F">
+          <End Role="bebidas" Type="Self.bebidas" Multiplicity="1" />
+          <End Role="pedidos" Type="Self.pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bebidas">
+              <PropertyRef Name="id_bebida" />
+            </Principal>
+            <Dependent Role="pedidos">
+              <PropertyRef Name="id_bebida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedidos__id_meto__52593CB8">
+          <End Role="metodos_pago" Type="Self.metodos_pago" Multiplicity="1" />
+          <End Role="pedidos" Type="Self.pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="metodos_pago">
+              <PropertyRef Name="id_metodo" />
+            </Principal>
+            <Dependent Role="pedidos">
+              <PropertyRef Name="id_metodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="menu12Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="alimentos" EntityType="Self.alimentos" />
+          <EntitySet Name="bebidas" EntityType="Self.bebidas" />
+          <EntitySet Name="metodos_pago" EntityType="Self.metodos_pago" />
+          <EntitySet Name="pedidos" EntityType="Self.pedidos" />
+          <AssociationSet Name="FK__pedidos__id_alim__5070F446" Association="Self.FK__pedidos__id_alim__5070F446">
+            <End Role="alimentos" EntitySet="alimentos" />
+            <End Role="pedidos" EntitySet="pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedidos__id_bebi__5165187F" Association="Self.FK__pedidos__id_bebi__5165187F">
+            <End Role="bebidas" EntitySet="bebidas" />
+            <End Role="pedidos" EntitySet="pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedidos__id_meto__52593CB8" Association="Self.FK__pedidos__id_meto__52593CB8">
+            <End Role="metodos_pago" EntitySet="metodos_pago" />
+            <End Role="pedidos" EntitySet="pedidos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="menu12ModelStoreContainer" CdmEntityContainer="menu12Entities">
+          <EntitySetMapping Name="alimentos">
+            <EntityTypeMapping TypeName="menu12Model.alimentos">
+              <MappingFragment StoreEntitySet="alimentos">
+                <ScalarProperty Name="id_alimento" ColumnName="id_alimento" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bebidas">
+            <EntityTypeMapping TypeName="menu12Model.bebidas">
+              <MappingFragment StoreEntitySet="bebidas">
+                <ScalarProperty Name="id_bebida" ColumnName="id_bebida" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="metodos_pago">
+            <EntityTypeMapping TypeName="menu12Model.metodos_pago">
+              <MappingFragment StoreEntitySet="metodos_pago">
+                <ScalarProperty Name="id_metodo" ColumnName="id_metodo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pedidos">
+            <EntityTypeMapping TypeName="menu12Model.pedidos">
+              <MappingFragment StoreEntitySet="pedidos">
+                <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
+                <ScalarProperty Name="nombre_cliente" ColumnName="nombre_cliente" />
+                <ScalarProperty Name="id_alimento" ColumnName="id_alimento" />
+                <ScalarProperty Name="id_bebida" ColumnName="id_bebida" />
+                <ScalarProperty Name="id_metodo" ColumnName="id_metodo" />
+                <ScalarProperty Name="para_llevar" ColumnName="para_llevar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
